@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️ Flipbook</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="hedlinecontainer">
+  <div id="shine">Happy Valentine's Day 💞</div>
+</div>
+
+<!-- GALLERY -->
+<div id="gallerySection">
+  <div class="gallery">
+    <img src="images/selfie-kiss-pair-man-preview 1.png">
+    <img src="images/2.png">
+    <img src="images/3.png">
+    <img src="images/4.png">
+    <img src="images/5.png">
+  </div>
+</div>
+
+<!-- FINAL QUESTION -->
+<div id="finalSection" class="hidden">
+  <h2 id="question">Will you be my Valentine? 💖</h2>
+
+  <div class="btns">
+    <button id="yesBtn" onclick="yesClicked()">Yes 😍</button>
+    <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No 🙈</button>
+  </div>
+
+  <p id="reply"></p>
+
+  <button class="navBtn" onclick="backToGallery()">⬅ Back to Photos</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
