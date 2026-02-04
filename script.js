@@ -32,6 +32,7 @@ setTimeout(() => {
 
 function showQuestion() {
   document.getElementById("gallerySection").style.display = "none";
+  document.getElementById("dots").style.display = "none";
   document.getElementById("finalSection").style.display = "block";
 }
 
@@ -51,6 +52,7 @@ startQuestionTimer();
 function backToGallery() {
   document.getElementById("finalSection").style.display = "none";
   document.getElementById("gallerySection").style.display = "block";
+  document.getElementById("dots").style.display = "flex";
   startQuestionTimer();
   // // restart auto question timer
   // setTimeout(() => {
@@ -89,6 +91,7 @@ function yesClicked() {
   document.getElementById("reply").innerText =
     "Thank you for making me the happiest person 💖\nHappy Valentine's Day 💕";
 }
+
 
 
 
