@@ -5,6 +5,23 @@ const images = document.querySelectorAll(".gallery img");
 const dotsContainer = document.getElementById("dots");
 let activeDot = 0;
 
+const gallery = document.querySelector(".gallery");
+
+/* Touch start → pause */
+gallery.addEventListener("touchstart", () => {
+  gallery.classList.add("paused");
+}, { passive: true });
+
+/* Touch end → resume */
+gallery.addEventListener("touchend", () => {
+  gallery.classList.remove("paused");
+});
+
+/* Safety: resume if touch is cancelled (scroll, call, etc.) */
+gallery.addEventListener("touchcancel", () => {
+  gallery.classList.remove("paused");
+});
+
 images.forEach((_, i) => {
   const d = document.createElement("div");
   d.className = "dot";
@@ -91,6 +108,7 @@ function yesClicked() {
   document.getElementById("reply").innerText =
     "Thank you for making me the happiest person 💖\nHappy Valentine's Day 💕";
 }
+
 
 
 
