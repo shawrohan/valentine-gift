@@ -214,6 +214,9 @@ body {
 
 #finalSection {
   display: none;
+}
+  
+#finalSection {
   text-align: center;
   margin-top: 30px;
   position: relative;
@@ -257,6 +260,7 @@ button {
   color: white;
   cursor: pointer;
 }
+
 
 
 
