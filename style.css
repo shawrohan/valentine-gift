@@ -2,11 +2,11 @@
 
 .gallery {
   --d: 10s;
-  /* duration */
   display: grid;
-  place-items: center; /* Center both horizontally and vertically */
-  width: 220px;
-  margin-left: 220px;
+  place-items: center;
+  width: min(220px, 70vw);
+  margin: auto;
+  position: relative;
 }
 
 .gallery > img {
@@ -14,11 +14,15 @@
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
+  border-radius: 12px;
   border: 10px solid #f2f2f2;
-  box-shadow: 0 0 4px #0007;
-  z-index: 2;
-  animation: slide var(--d) infinite, z-order var(--d) infinite steps(1);
+  box-shadow: 0 8px 18px rgba(0,0,0,.25);
+  will-change: transform;
+  animation:
+    slide var(--d) infinite,
+    z-order var(--d) infinite steps(1);
 }
+
 
 .gallery img:last-child {
   animation-name: slide, z-order-last;
@@ -50,13 +54,14 @@
 }
 
 @keyframes slide {
-  10% {
-    transform: translateX(120%) rotate(var(--r));
+  0%, 20%, 100% {
+    transform: translate3d(0,0,0) rotate(var(--r));
   }
-  0%, 100%, 20% {
-    transform: translateX(0%) rotate(var(--r));
+  10% {
+    transform: translate3d(120%,0,0) rotate(var(--r));
   }
 }
+
 
 @keyframes z-order {
   10%, 20% {
@@ -79,8 +84,9 @@
 body {
   margin: 0;
   min-height: 100vh;
-  display: grid;
-  place-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background: #f8f6f1;
   overflow: hidden;
 }
@@ -135,15 +141,6 @@ body {
   margin-bottom: 60px;
 }
 
-.gallery {
-  --d: 10s;
-  /* duration */
-  display: grid;
-  place-items: center; /* Center both horizontally and vertically */
-  width: 150px;
-  margin-left: 60px;
-}
-}
 
 .flipbook-container {
   perspective: 1500px;
@@ -193,31 +190,39 @@ body {
 
 #finalSection {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 30px;
+  position: relative;
 }
 
 #question {
-  color: #b30059;
   font-size: 26px;
+  color: #b30059;
 }
 
-.btns button {
+.btns {
+  position: relative;
+  height: 120px;
+}
+
+button {
   padding: 12px 22px;
-  margin: 10px;
-  font-size: 16px;
   border-radius: 25px;
   border: none;
   cursor: pointer;
+  font-size: 16px;
 }
 
-#yesBtn { background: #ff3366; color: white; }
+#yesBtn {
+  background: #ff3366;
+  color: white;
+}
 
 #noBtn {
   background: #999;
   color: white;
   position: absolute;
 }
-
+  
 .navBtn {
   margin-top: 20px;
   padding: 10px 18px;
@@ -227,4 +232,5 @@ body {
   color: white;
   cursor: pointer;
 }
+
 
