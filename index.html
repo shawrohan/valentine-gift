@@ -1,48 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>For You ❤️ Flipbook</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Day Flip Book</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="hedlinecontainer">
-  <div id="shine">Happy Valentine's Day 💞</div>
-</div>
-
-<!-- GALLERY -->
-<div id="gallerySection">
+  <div id="hedlinecontainer">
+    <div id="shine">Happy Valentine's Day💞 my Gendu❤️🥹</div>
+  </div>
+  
+<div class="flipbook-wrapper">
   <div class="gallery">
-    <img src="images/1.png" alt="11111">
-    <img src="images/2.jpg" alt="22222">
-    <img src="images/3.jpg" alt="33333">
-    <img src="images/4.jpg" alt="44444">
-    <img src="images/5.png" alt="55555">
+    <img src="images/1.jpg" alt="a lovely kiss in the night">
+    <img src="images/2.jpg" alt="a women inside a car">
+    <img src="images/3.jpg" alt="a baby">
+    <img src="images/4.jpg" alt="a girl in the forest">
+    <img src="images/5.jpg" alt="a girl">
   </div>
 
-  <div id="dots"></div>
-
-</div>
-
-<!-- FINAL QUESTION -->
-<div id="finalSection" class="hidden">
-  <h2 id="question">Will you be my Valentine? 💖</h2>
-
-  <div class="btns">
-    <button id="yesBtn" onclick="yesClicked()">Yes 😍</button>
-    <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No 🙈</button>
+<div id="loader">
+  <div class="loader-text">Loading love… 💖</div>
+  <div class="progress-bar">
+    <div class="progress"></div>
   </div>
-
-  <p id="reply"></p>
-
-  <button class="navBtn" onclick="backToGallery()">⬅ Back to Photos</button>
+  <div class="progress-percent">0%</div>
+</div>
 </div>
 
+
+<div id="valentine-screen" class="hidden">
+  <h1 id="question">Will you be my Valentine? 💖</h1>
+  <div class="buttons">
+    <button id="yes">Yes 💕</button>
+    <button id="no">No 🙈</button>
+  </div>
+</div>
+
+<div id="secret" class="hidden">
+  <div class="secret-content">
+    <img src="images/secret.jpg" alt="Our Memory 💕">
+    <h2>You just made my day ❤️</h2>
+    <p>Thank you for being my Valentine 🌹</p>
+  </div>
+</div>
+
+<button id="replay-btn">↻ Replay</button>
 <script src="script.js"></script>
+
 </body>
 </html>
-
-
-
