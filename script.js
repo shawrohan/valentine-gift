@@ -1,116 +1,205 @@
 /* ===============================
-   CONFIGURATION
-================================ */
-const LOOP_TIME = 5000;              // same as CSS --d (ms)
-const LOOPS_BEFORE_QUESTION = 3;
-const QUESTIONS = [
-  "Are you really sure? 🥺",
-  "Think again... my heart is fragile 💔",
-  "Last chance 😭",
-  "What if I bring chocolates? 🍫",
-  "You can’t escape love 😎❤️",
-  "Say yes alreadyyy 🙈💕"
-];
-
-/* ===============================
-   DOM ELEMENTS
+   CORE ELEMENTS
 ================================ */
 const gallery = document.querySelector(".gallery");
-const images = document.querySelectorAll(".gallery img");
-const dotsContainer = document.getElementById("dots");
-const gallerySection = document.getElementById("gallerySection");
-const finalSection = document.getElementById("finalSection");
-const questionText = document.getElementById("question");
-const replyText = document.getElementById("reply");
-const btnContainer = document.querySelector(".btns");
+const screen = document.getElementById("valentine-screen");
+const valentineScreen = document.getElementById("valentine-screen");
+
+const question = document.getElementById("question");
+
+const yesBtn = document.getElementById("yes");
+const noBtn = document.getElementById("no");
+
+const secret = document.getElementById("secret");
+
+const loader = document.getElementById("loader");
+const progress = document.querySelector(".progress");
+const percentText = document.querySelector(".progress-percent");
 
 /* ===============================
-   STATE
+   QUESTIONS
 ================================ */
+const questions = [
+  "Will you be my Valentine? 💖",
+  "Are you absolutely sure? 😳",
+  "Think again… I made this website 🥺",
+  "What if I say please? 🙈",
+  "Okay but we’d look cute together 😌",
+  "Last chance… don’t break my heart 💔",
+  "Alright fine… say Yes already 😤❤️"
+];
+
+let noCount = 0;
+
+/* ===============================
+   TIMING
+================================ */
+const SHOW_AFTER = 1000; // 10s total
+const INTERVAL = 100;
+
+let startTime = Date.now();
+let pausedAt = null;
+let pausedDuration = 0;
 let isPaused = false;
-let activeDot = 0;
-let questionIndex = 0;
-let questionTimer = null;
+let hasTransitioned = false;
 
 /* ===============================
-   DOTS SETUP
+   PAUSE / RESUME
 ================================ */
-function createDots() {
-  images.forEach(() => {
-    const dot = document.createElement("div");
-    dot.className = "dot";
-    dotsContainer.appendChild(dot);
-  });
+function pauseAll() {
+  if (isPaused) return;
+  isPaused = true;
+  pausedAt = Date.now();
 }
 
-const dots = () => document.querySelectorAll(".dot");
+function resumeAll() {
+  if (!isPaused) return;
+  isPaused = false;
+  pausedDuration += Date.now() - pausedAt;
+  pausedAt = null;
+}
+
+/* Pause on hover */
+gallery.addEventListener("mouseenter", pauseAll);
+gallery.addEventListener("mouseleave", resumeAll);
+loader.addEventListener("mouseenter", pauseAll);
+loader.addEventListener("mouseleave", resumeAll);
 
 /* ===============================
-   DOT ANIMATION
+   LOADER + TRANSITION DRIVER
 ================================ */
-function startDotAnimation() {
-  return setInterval(() => {
-    const allDots = dots();
-    allDots.forEach(d => d.classList.remove("active"));
-    allDots[activeDot]?.classList.add("active");
-    activeDot = (activeDot + 1) % allDots.length;
-  }, LOOP_TIME / images.length);
-}
+let loaderTimer = null;
 
-/* ===============================
-   GALLERY ↔ QUESTION FLOW
-================================ */
-const TOTAL_TIME = LOOP_TIME * LOOPS_BEFORE_QUESTION;
+function startLoaderTimer() {
+  if (loaderTimer) clearInterval(loaderTimer);
 
-function showQuestion() {
-  gallerySection.style.display = "none";
-  dotsContainer.style.display = "none";
-  finalSection.style.display = "block";
-}
+  loaderTimer = setInterval(() => {
+    if (isPaused || hasTransitioned) return;
 
-function startQuestionTimer() {
-  clearTimeout(questionTimer);
-  questionTimer = setTimeout(showQuestion, TOTAL_TIME);
-}
+    const now = Date.now();
+    const elapsed = now - startTime - pausedDuration;
 
-function backToGallery() {
-  finalSection.style.display = "none";
-  gallerySection.style.display = "block";
-  dotsContainer.style.display = "flex";
-  startQuestionTimer();
+    const percent = Math.min((elapsed / SHOW_AFTER) * 100, 100);
+    progress.style.width = percent + "%";
+    percentText.textContent = Math.floor(percent) + "%";
+
+    if (elapsed >= SHOW_AFTER) {
+      hasTransitioned = true;
+      clearInterval(loaderTimer);
+      showQuestionScreen();
+    }
+  }, INTERVAL);
 }
 
 /* ===============================
-   INTERACTIONS
+   SHOW QUESTION SCREEN
 ================================ */
-gallery.addEventListener("touchend", () => {
-  isPaused = !isPaused;
-  gallery.classList.toggle("paused", isPaused);
+function showQuestionScreen() {
+  gallery.classList.add("paused");
+  gallery.style.opacity = "0";
+  gallery.style.transition = "opacity 1s ease";
+
+  loader.style.opacity = "0";
+  loader.style.transition = "opacity 0.8s ease";
+
+  setTimeout(() => {
+    loader.style.display = "none";
+    screen.classList.remove("hidden");
+    screen.classList.add("show");
+  }, 1000);
+}
+
+/* ===============================
+   NO BUTTON LOGIC
+================================ */
+noBtn.addEventListener("mouseenter", moveButton);
+noBtn.addEventListener("click", moveButton);
+noBtn.addEventListener("touchstart", moveButton);
+
+function moveButton() {
+  noCount++;
+  question.textContent =
+    questions[noCount] || "You have no choice now 😈❤️";
+
+  question.classList.add("bump");
+  setTimeout(() => question.classList.remove("bump"), 300);
+
+  const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+  const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+  noBtn.style.position = "fixed";
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
+}
+
+/* ===============================
+   YES → HEART EXPLOSION
+================================ */
+yesBtn.addEventListener("click", () => {
+  explodeHearts();
+  valentineScreen.classList.remove("show");
+
+  setTimeout(() => {
+    secret.classList.remove("hidden");
+    secret.classList.add("show");
+  }, 2000);
 });
 
-function moveNo() {
-  const noBtn = document.getElementById("noBtn");
+function explodeHearts() {
+  for (let i = 0; i < 50; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = "❤️";
 
-  const x = Math.random() * (window.innerWidth - 120);
-  const y = Math.random() * (window.innerHeight - 120);
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.top = Math.random() * window.innerHeight + "px";
+    heart.style.fontSize = 16 + Math.random() * 24 + "px";
 
-  noBtn.style.left = `${x}px`;
-  noBtn.style.top = `${y}px`;
-
-  questionText.innerText =
-    QUESTIONS[questionIndex++ % QUESTIONS.length];
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 4000);
+  }
 }
 
-function yesClicked() {
-  questionText.innerText = "Yaaay!! I knew it 😍❤️";
-  btnContainer.style.display = "none";
-  replyText.innerText =
-    "Thank you for making me the happiest person 💖\nHappy Valentine's Day 💕";
+const replayBtn = document.getElementById("replay-btn");
+
+replayBtn.addEventListener("click", restartExperience);
+
+function restartExperience() {
+  /* Reset timing */
+  startTime = Date.now();
+  pausedDuration = 0;
+  pausedAt = null;
+  isPaused = false;
+  hasTransitioned = false;
+
+  /* Reset loader */
+  progress.style.width = "0%";
+  percentText.textContent = "0%";
+  loader.style.display = "block";
+  loader.style.opacity = "1";
+
+  /* Reset gallery */
+  gallery.classList.remove("paused");
+  gallery.style.opacity = "1";
+
+  /* Reset screens */
+  screen.classList.remove("show");
+  screen.classList.add("hidden");
+
+  secret.classList.remove("show");
+  secret.classList.add("hidden");
+
+  /* Reset questions */
+  noCount = 0;
+  question.textContent = questions[0];
+
+  /* Reset No button position */
+  noBtn.style.position = "relative";
+  noBtn.style.left = "auto";
+  noBtn.style.top = "auto";
+
+  /* Restart loader timer */
+  startLoaderTimer();
 }
 
-/* ===============================
-   INIT
-================================ */
-createDots();
-startDotAnimation();
-startQuestionTimer();
+startLoaderTimer();
