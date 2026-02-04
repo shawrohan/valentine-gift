@@ -34,7 +34,7 @@ let noCount = 0;
 /* ===============================
    TIMING
 ================================ */
-const SHOW_AFTER = 1000; // 10s total
+const SHOW_AFTER = 10000; // 10s total
 const INTERVAL = 100;
 
 let startTime = Date.now();
@@ -203,3 +203,4 @@ function restartExperience() {
 }
 
 startLoaderTimer();
+
