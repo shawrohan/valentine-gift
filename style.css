@@ -23,6 +23,10 @@
     z-order var(--d) infinite steps(1);
 }
 
+.gallery:hover img {
+  animation-play-state: paused;
+}
+
 
 .gallery img:last-child {
   animation-name: slide, z-order-last;
@@ -232,5 +236,6 @@ button {
   color: white;
   cursor: pointer;
 }
+
 
 
