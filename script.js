@@ -1,5 +1,5 @@
 // how long one full gallery loop takes (same as --d in CSS)
-const loopTime = 10000; // 10s
+const loopTime = 5000; // 10s
 const loopsBeforeQuestion = 3;
 
 let totalTime = loopTime * loopsBeforeQuestion;
@@ -55,3 +55,4 @@ function yesClicked() {
   document.getElementById("reply").innerText =
     "Thank you for making me the happiest person 💖\nHappy Valentine's Day 💕";
 }
+
