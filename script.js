@@ -1,6 +1,23 @@
 // how long one full gallery loop takes (same as --d in CSS)
 const loopTime = 5000; // 10s
 const loopsBeforeQuestion = 3;
+const images = document.querySelectorAll(".gallery img");
+const dotsContainer = document.getElementById("dots");
+let activeDot = 0;
+
+images.forEach((_, i) => {
+  const d = document.createElement("div");
+  d.className = "dot";
+  dotsContainer.appendChild(d);
+});
+
+const dots = document.querySelectorAll(".dot");
+
+setInterval(() => {
+  dots.forEach(d => d.classList.remove("active"));
+  dots[activeDot].classList.add("active");
+  activeDot = (activeDot + 1) % dots.length;
+}, loopTime / images.length);
 
 let totalTime = loopTime * loopsBeforeQuestion;
 
@@ -55,4 +72,5 @@ function yesClicked() {
   document.getElementById("reply").innerText =
     "Thank you for making me the happiest person 💖\nHappy Valentine's Day 💕";
 }
+
 
