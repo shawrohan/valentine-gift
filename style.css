@@ -210,16 +210,14 @@ body {
 #noBtn { background: #999; color: white; position: absolute; }
 .navBtn { background: #ff7799; color: white; }
 
-.hidden { display: none; }
-
-#finalSection {
-  display: none;
-}
-  
 #finalSection {
   text-align: center;
   margin-top: 30px;
   position: relative;
+}
+
+.hidden {
+  display: none !important;
 }
 
 #question {
@@ -260,6 +258,7 @@ button {
   color: white;
   cursor: pointer;
 }
+
 
 
 
