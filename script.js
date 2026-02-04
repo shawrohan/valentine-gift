@@ -25,20 +25,37 @@ setTimeout(() => {
   showQuestion();
 }, totalTime);
 
+// function showQuestion() {
+//   document.getElementById("gallerySection").classList.add("hidden");
+//   document.getElementById("finalSection").classList.remove("hidden");
+// }
+
 function showQuestion() {
-  document.getElementById("gallerySection").classList.add("hidden");
-  document.getElementById("finalSection").classList.remove("hidden");
+  document.getElementById("gallerySection").style.display = "none";
+  document.getElementById("finalSection").style.display = "block";
 }
 
-// Back to gallery and restart loop timer
-function backToGallery() {
-  document.getElementById("finalSection").classList.add("hidden");
-  document.getElementById("gallerySection").classList.remove("hidden");
+let questionTimer;
 
-  // restart auto question timer
-  setTimeout(() => {
-    showQuestion();
-  }, totalTime);
+function startQuestionTimer() {
+  clearTimeout(questionTimer);
+  questionTimer = setTimeout(showQuestion, totalTime);
+}
+
+startQuestionTimer();
+
+// Back to gallery and restart loop timer
+// function backToGallery() {
+//   document.getElementById("finalSection").classList.add("hidden");
+//   document.getElementById("gallerySection").classList.remove("hidden");
+function backToGallery() {
+  document.getElementById("finalSection").style.display = "none";
+  document.getElementById("gallerySection").style.display = "block";
+  startQuestionTimer();
+  // // restart auto question timer
+  // setTimeout(() => {
+  //   showQuestion();
+  // }, totalTime);
 }
 
 // Playful NO button
@@ -72,5 +89,6 @@ function yesClicked() {
   document.getElementById("reply").innerText =
     "Thank you for making me the happiest person 💖\nHappy Valentine's Day 💕";
 }
+
 
 
