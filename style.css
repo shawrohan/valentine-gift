@@ -23,6 +23,22 @@
     z-order var(--d) infinite steps(1);
 }
 
+.gallery img {
+  animation-play-state: running;
+}
+
+.gallery.paused img {
+  animation-play-state: paused;
+}
+
+.gallery.paused > img {
+  animation-play-state: paused;
+}
+
+.gallery.paused > img:first-child {
+  z-index: 10;
+}
+
 .gallery:hover img {
   animation-play-state: paused;
 }
@@ -258,6 +274,7 @@ button {
   color: white;
   cursor: pointer;
 }
+
 
 
 
