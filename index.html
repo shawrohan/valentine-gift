@@ -9,7 +9,7 @@
 <body>
 
   <div id="hedlinecontainer">
-    <div id="shine">Happy Valentine's Day💞❤️🥹</div>
+    <div id="shine">Happy Valentine's Day💞</div>
   </div>
   
 <div class="flipbook-wrapper">
@@ -40,16 +40,76 @@
 </div>
 
 <div id="secret" class="hidden">
+
+
   <div class="secret-content">
-    <img src="images/secret.jpg" alt="Our Memory 💕">
+  <div class="carousel-bg"></div>
+  <div class="carousel">
+
+  <button class="nav prev">❮</button>
+
+  <div class="carousel-window">
+    <div class="carousel-track">
+
+      <!-- Clone last -->
+  <div class="slide clone">
+    <img src="images/5.jpg">
+    <div class="caption">Forever my favorite memory 💞</div>
+  </div>
+
+  <!-- Real slides -->
+  <div class="slide active">
+    <img src="images/1.jpg">
+    <div class="caption">Our first smile together ❤️</div>
+  </div>
+
+  <div class="slide">
+    <img src="images/2.jpg">
+    <div class="caption">That unforgettable evening 🌙</div>
+  </div>
+
+  <div class="slide">
+    <img src="images/3.jpg">
+    <div class="caption">You make everything brighter ✨</div>
+  </div>
+
+  <div class="slide">
+    <img src="images/4.jpg">
+    <div class="caption">Forever my favorite memory 💞</div>
+  </div>
+
+  <div class="slide">
+    <img src="images/5.jpg">
+    <div class="caption">Forever my favorite memory 💞</div>
+  </div>
+
+  <!-- Clone first -->
+  <div class="slide clone">
+    <img src="images/1.jpg">
+    <div class="caption">Our first smile together ❤️</div>
+  </div>
+
+
+    </div>
+  </div>
+
+  <button class="nav next">❯</button>
+
+</div>
+
     <h2>You just made my day ❤️</h2>
     <p>Thank you for being my Valentine 🌹</p>
+
   </div>
 </div>
 
+<div id="zoomViewer">
+  <img id="zoomImage">
+</div>
+
 <button id="replay-btn">↻ Replay</button>
-<script src="script.js"></script>
+<script src="script.js" defer></script>
+<audio id="slideSound" src="sounds/slide.mp3" preload="auto"></audio>
 
 </body>
 </html>
-
