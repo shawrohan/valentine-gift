@@ -141,45 +141,40 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-
-  /* Center the whole experience reliably */
-  body {
-    place-content: start center;
-  }
-
-  .flipbook-wrapper {
-    width: 100%;
-    align-items: center;
-    padding: 0 16px;
-    box-sizing: border-box;
-  }
-
-  .gallery {
+.gallery {
     width: 150px;
-    margin: 0 auto;     /* 🔑 force true horizontal center */
+  }
+
+.carousel {
+    width: 200px;
+    height: 200px;
   }
 
   #loader {
     width: 200px;
-    margin: 0 auto;     /* 🔑 center loader under gallery */
-  }
-
-  .carousel {
-    width: 200px;
-    height: 200px;
-    margin: 0 auto;
   }
 
   #shine {
-    font-size: 22px;
-    text-align: center;
-  }
+  font-size: 22px;
 
-  #hedlinecontainer {
-    margin-bottom: 40px;
-  }
 }
 
+#hedlinecontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.gallery {
+  --d: 10s;
+  /* duration */
+  display: grid;
+  place-items: center; /* Center both horizontally and vertically */
+  width: 150px;
+  margin-left: 60px;
+}
+}
 
 #valentine-screen {
   position: fixed;
@@ -529,6 +524,5 @@ body {
   animation: yesBounce 0.6s ease;
   transform: scale(1.05);
 }
-
 
 
