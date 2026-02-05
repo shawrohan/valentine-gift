@@ -52,6 +52,21 @@ let pausedDuration = 0;
 let isPaused = false;
 let hasTransitioned = false;
 let loaderTimer = null;
+let hoverPaused = false;
+let hoverStartTime = 0;
+let totalHoverPausedTime = 0;
+
+gallery.addEventListener("mouseenter", () => {
+  hoverPaused = true;
+  hoverStartTime = Date.now();
+});
+
+gallery.addEventListener("mouseleave", () => {
+  if (!hoverPaused) return;
+
+  hoverPaused = false;
+  totalHoverPausedTime += Date.now() - hoverStartTime;
+});
 
 function pauseAll() {
   if (!isReady) return;   // 🔑 ignore early hover
@@ -78,10 +93,17 @@ function startLoaderTimer() {
 
   hasTransitioned = false;
   startTime = Date.now();
+  totalHoverPausedTime = 0;
+  hoverPaused = false;
+  hoverStartTime = 0;
 
   loaderTimer = setInterval(() => {
 
-    const elapsed = Date.now() - startTime;
+    const elapsed =
+      Date.now() - startTime
+      - totalHoverPausedTime
+      - (hoverPaused ? Date.now() - hoverStartTime : 0);
+
     const percent = Math.min((elapsed / SHOW_AFTER) * 100, 100);
 
     progress.style.width = percent + "%";
@@ -94,7 +116,6 @@ function startLoaderTimer() {
 
   }, INTERVAL);
 }
-
 
 /* ===============================
    SHOW QUESTION
@@ -381,6 +402,9 @@ yesBtn.classList.remove("attention");
     track.style.transition = "none";
     track.style.transform = "translateX(0)";
   }
+hoverPaused = false;
+hoverStartTime = 0;
+totalHoverPausedTime = 0;
 
   /* ---- START FRESH TIMER (ONLY PLACE THAT SETS startTime) ---- */
   startLoaderTimer();
