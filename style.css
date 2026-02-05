@@ -10,6 +10,8 @@
   display: grid;
   place-items: center; /* Center both horizontally and vertically */
   width: 220px;
+  position: relative;
+  z-index: 1;
 }
 
 .gallery > img {
@@ -143,17 +145,24 @@ body {
     width: 150px;
   }
 
+.carousel {
+    width: 200px;
+    height: 200px;
+  }
+
   #loader {
     width: 200px;
   }
+
   #shine {
   font-size: 22px;
+
 }
+
 #hedlinecontainer {
   display: flex;
   justify-content: center;
   align-items: center;
-
   margin-bottom: 60px;
 }
 
@@ -325,20 +334,195 @@ body {
   position: fixed;
   top: 20px;
   right: 20px;
+
   padding: 10px 16px;
   border-radius: 30px;
   border: none;
+
   font-size: 14px;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.9);
+
+  background: rgba(255,255,255,0.95);
   color: #ff4d6d;
+
   box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-  z-index: 200;
-  transition: transform 0.2s ease, background 0.2s ease;
+
+  z-index: 9999;
+
+  /* 🔥 Mobile stacking fix */
+  transform: translateZ(0);
+  will-change: transform;
 }
+
 
 #replay-btn:hover {
   transform: scale(1.05);
   background: #fff;
 }
+
+
+.carousel {
+  position: relative;
+  width: 260px;
+  margin-bottom: 25px;
+}
+
+.carousel-window {
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+
+.carousel-track {
+  display: flex;
+  align-items: center;
+  transition: transform 0.6s ease;
+}
+
+
+
+.slide {
+  width: 260px;
+  height: 260px;
+  flex-shrink: 0;
+  margin: 0 10px;
+  position: relative;
+
+  transform: scale(0.85);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  opacity: 0.6;
+}
+
+
+.slide.active {
+  transform: scale(1);
+  opacity: 1;
+  z-index: 2;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+
+
+.caption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 12px;
+  text-align: center;
+  pointer-events: none;
+  color: white;
+  font-size: 14px;
+
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  border-radius: 0 0 20px 20px;
+
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.slide.active .caption {
+  opacity: 1;
+}
+
+
+
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: rgba(255,255,255,0.9);
+  color: #ff4d6d;
+  font-size: 26px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.prev {
+  left: -15px;
+}
+
+.next {
+  right: -15px;
+}
+
+.carousel-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(30px);
+  opacity: 0.5;
+  transition: background-image 0.6s ease;
+  z-index: 0;
+}
+
+#zoomViewer {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+}
+
+#zoomViewer.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#zoomImage {
+  max-width: 70%;
+  max-height: 70%;
+  border-radius: 20px;
+  transition: transform 0.4s ease;
+}
+
+.zoom-heart {
+  position: fixed;
+  font-size: 22px;
+  pointer-events: none;
+  animation: floatZoomHeart 2s ease forwards;
+}
+
+@keyframes floatZoomHeart {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120px) scale(1.6);
+  }
+}
+
+/* YES button attention animation */
+@keyframes yesBounce {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.15); }
+  50%  { transform: scale(0.95); }
+  70%  { transform: scale(1.1); }
+  100% { transform: scale(1.05); }
+}
+
+/* Applied when No disappears */
+#yes.attention {
+  animation: yesBounce 0.6s ease;
+  transform: scale(1.05);
+}
+
 
