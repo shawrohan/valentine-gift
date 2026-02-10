@@ -42,7 +42,7 @@ let noCount = 0;
 /* ===============================
    TIMER / LOADER (ISOLATED)
 ================================ */
-const SHOW_AFTER = 5000;
+const SHOW_AFTER = 15000;
 const INTERVAL = 100;
 
 let isReady = false;
