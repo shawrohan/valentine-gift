@@ -249,18 +249,16 @@ body {
 
 #secret {
   position: fixed;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: calc(var(--vh, 1vh) * 100);
+  height: 100vh;
+
   background: radial-gradient(circle, #ff9a9e, #ff4d6d);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;   /* only horizontal center */
-  padding: 20px;        /* space from top */
-  box-sizing: border-box;
-  overflow-y: auto;          /* 🔥 allow scroll */
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
   z-index: 100;
   opacity: 0;
   pointer-events: none;
@@ -309,6 +307,12 @@ margin: 5px 0;
 .secret-content h3:hover {
   transform: scale(1.03);
   background: rgba(255, 255, 255, 0.2);
+}
+.secret-wrapper {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 80px 20px 60px;
+  text-align: center;
 }
 
 
@@ -415,7 +419,7 @@ margin: 5px 0;
   position: relative;
   width: 260px;
   margin: 0 auto 25px auto;
-  margin-bottom: 0 auto;
+  margin-bottom: 40px;
 }
 
 .carousel-window {
@@ -591,6 +595,7 @@ margin: 5px 0;
   text-align: center;
   box-sizing: border-box;
 }
+
 
 
 
