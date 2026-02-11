@@ -104,13 +104,17 @@ body {
 
 #hedlinecontainer {
   display: flex;
+  flex-direction: column;   /* stack vertically */
   justify-content: center;
-  align-items: center;
+  align-items: center;      /* center horizontally */
+  text-align: center;
+  gap: 10px;                /* space between lines */
   margin-top: 20px;
   margin-bottom: 60px;
 }
 
-#shine {
+
+.shine {
   font-size: 60px;
   font-weight: bold;
   color: rgba(255, 0, 102, 0.3);
@@ -588,4 +592,5 @@ margin: 5px 0;
   text-align: center;
   box-sizing: border-box;
 }
+
 
